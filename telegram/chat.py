@@ -116,6 +116,16 @@ class Chat(TelegramObject):
         self.bot = bot
         self._id_attrs = (self.id,)
 
+    @property
+    def link(self):
+        """
+        :obj:`str`: Convenience property. If the chat is a supergroup and has a
+        :attr:`username`, returns a t.me link of the chat.
+        """
+        if self.type == Chat.SUPERGROUP and self.username:
+            return "https://t.me/{}".format(self.usermame)
+        return None
+
     @classmethod
     def de_json(cls, data, bot):
         if not data:
